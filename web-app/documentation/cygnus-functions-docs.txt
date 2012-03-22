@@ -1,0 +1,51 @@
+@Haris Ibrahim 22-03-2012
+cygnus-ajax driven-autocomplete
+
+Assume you have created (or generated) views and controllers for your domainClass.
+In Domain Class which has One-to-many or one-to-one relation to other domainClass,
+Grails auto-generate select box to find and get the data from field related class.
+
+how to use :
+1. Make sure you had include jquery and jqueryui library on your sitemesh or .gsp your page.
+2. Load cygnus-functions.js on your sitemesh or your .gsp page
+3. create methods in your domain controller which will generate list of data
+   note : Stick on CoC, change ONLY controllers which control domainClass you want to search
+   3.a. build your GORM query (suggested to use criteria), and add ilike '[yourQueryColumn]','params.term' + '%'
+   3.b. on the result section of your method, 
+   call JSONUtilService.transformToStandardizedJSONFormat(domainResultList,idLabelValue,otherValuesNeeded) as JSON
+        How this method works :
+        domainResultList = resultList of your query
+        idLabelValue = List of id,label,value of your query ; needed for default JSON autocomplete data
+        otherValue[optional] = fill with other value you want to include for JSON marshalling in Jquery of your page
+   Example could be found on : com.cygnus.sys.mnm.STMenuController
+4. Modify your gsp
+	note : the following example code could be found on plugin : [cygnus-reportmanagement] -> ReportController -> views/report/_form.gsp
+	4.a. Remove the <g:select> section and replace with two <g:textField>
+		 4.a.i.  first text field with name [fieldNameOfDomain].id
+		 4.a.ii. second text field with name [fieldNameOfDomain] or other name
+	4.b. add several jQuery syntax on the end of your _form.gsp page
+	
+	<script type="text/javascript">
+	<!--Adding link to controller which contains JSON method -->
+	var menuCodeAjax = '${createLink(action: '[linkToAction]', controller:'[controllerName]')}'
+	$(function(){
+		<!-- wiring things up -->
+		 $("#[fieldNameOfDomain]").autocomplete({ 
+			    source:function(request,response){
+			    	<!--make calls to Ajax -->
+			    	ajaxRequest(menuCodeAjax,request,response);
+				    },
+			<!-- minimum character before autocomplete begins to search -->    
+			    minLength:2,
+			<!-- action when selecting one of autocomplete result -->
+			    select:function(event,ui){
+			    $("#[fieldNameOFDomain]\\.id").val(ui.item.id);    
+				$("#[otherComponentToSelect]").val(ui.item.[otherValueNeeded]);    
+				}	
+	});
+	});
+	</script>
+	
+														You ARE DONE !!!
+														===DRY in CoC===
+	          

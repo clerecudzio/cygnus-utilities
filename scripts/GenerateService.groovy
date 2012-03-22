@@ -5,30 +5,24 @@ import org.codehaus.gant.GantState
  * - AuditTrail for tables
  * - Logging before insert / update on tables
  */
-
-includeTargets << grailsScript("_GrailsCreateArtifacts")
-
 includeTargets << new File("${cygnusUtilitiesPluginDir}/scripts/GenerateExt.groovy")
-ant.path(id: "grails.compile.classpath", compileClasspath)
-
-println "plugin dir classpath = "+"${cygnusUtilitiesPluginDir}"
-println "grails work dir = "+"${grailsHome}"
-println  System.getenv().'HOME' 
+includeTargets << grailsScript("_GrailsCreateArtifacts")
 
 
 ant.java(classname: "com.cygnus.grails.util.scaffolding.ServiceGenerator" ) {
 	arg(value: "")
 	ant.classpath {
 		pathelement(location: "${cygnusUtilitiesPluginDir}/target/classes")
-		
-		
-	}
- }
-
-ant.java(classname: "org.codehaus.groovy.grails.scaffolding.DefaultGrailsTemplateGenerator" ) {
-	arg(value: "")
-	ant.classpath {
+		pathelement(location: "${grailsHome}/dist/grails-core-2.0.0.jar")
 		pathelement(location: "${grailsHome}/dist/grails-crud-2.0.0.jar")
+		
+		pathelement(location: "${grailsHome}/lib/org.springframework/spring-beans/jars/spring-beans-3.1.0.RELEASE.jar")
+		pathelement(location: "${grailsHome}/lib/org.codehaus.groovy/groovy-all/jars/groovy-all-1.8.4.jar")
+		pathelement(location: "${grailsHome}/lib/other/commons-logging-1.0.2.jar")
+		pathelement(location: "${grailsHome}/lib/org.springframework/spring-core/jars/spring-core-3.1.0.RELEASE.jar")
+		pathelement(location: "${grailsHome}/lib/org.springframework/spring-context/jars/spring-context-3.1.0.RELEASE.jar")
+		
+		
 		
 		
 	}
