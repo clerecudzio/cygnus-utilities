@@ -1,0 +1,49 @@
+/*Search component fieldset*/
+fieldset.search {
+	background-color: transparent;
+	border: 1px solid #CCCCCC;
+	padding-left: 0;
+	padding-right: 0;
+	-moz-box-shadow: 0.1em;
+	-webkit-box-shadow: 0.1em;
+	-moz-border-radius: 0.3em;
+	-webkit-border-radius: 0.3em;
+	box-shadow: none;
+	-webkit-border-radius: 0.3em;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+fieldset.search legend {
+	margin: 0 1em;
+	font-size: 13px;
+	border: 1em;
+}
+
+fieldset.search .fieldcontain {
+	margin: 0.6em 1.25em 0 1.25em;
+	padding: 2.5px; position : relative;
+	border: 1em;
+	position: relative;
+}
+
+fieldset.search .fieldcontain label,input,select {
+	margin:0em;
+	
+}
+
+fieldset.search .fieldcontain label {
+	
+}
+
+fieldset.search .fieldcontain br {
+	clear:left;
+}
+
+fieldset.search .fieldcontain input.save {
+	
+	-moz-border-radius: 0.3em;
+	-webkit-border-radius: 0.3em;
+		-moz-box-shadow: 0.3em;
+	-webkit-box-shadow: 0.3em;
+}
