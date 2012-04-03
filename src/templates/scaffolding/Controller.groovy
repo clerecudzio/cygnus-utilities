@@ -1,7 +1,7 @@
 <%=packageName ? "package ${packageName}\n\n" : ''%>import org.springframework.dao.DataIntegrityViolationException
 
 class ${className}Controller {
-
+	def universalSearchService
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
@@ -98,4 +98,12 @@ class ${className}Controller {
             redirect(action: "show", id: params.id)
         }
     }
+	
+	def cygnusFilteredSearch(){
+		params.max = Math.min(params.max ? params.int('max') : 10, 100)
+		
+		log.info "params = "+params.toString();
+		def result = universalSearchService.generateResult(params)
+		render (view:"list",model: [${propertyName}List: result.resultList, ${propertyName}Total: result.resultListSize])
+	}
 }
