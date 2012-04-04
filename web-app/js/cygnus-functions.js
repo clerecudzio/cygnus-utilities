@@ -46,7 +46,16 @@ function ajaxRequest(ajaxUrl,request,response){
  * Spinner modal box
  */
 $(document).ready(function(){
-	  
+	//disable escape button
+	$(document).keydown(function(e) {
+	    if (e.keyCode == 27) {
+	    	alert('sorry esc is disabled');
+	    	return false;
+	    }
+	});
+	
+	$("#spinner").dialog('close');
+	
 	$('#nav ul li a, .nav ul li a, th a, td a, a.edit, a.create,a.list,a.delete,div.pagination *').click(function(){
 		var objectUrl = $(this).attr('href'); 
 		openUrl(objectUrl);
@@ -69,8 +78,12 @@ function openUrl(objectUrl){
 	
 	
 	$('#spinner').dialog({
-	  autoOpen: false,
-	         modal:true
+			 closeOnEscape:false,
+			 autoOpen: false,
+	         modal:true,
+	         show: "bounce",
+			 hide: "fade",
+			 open: function(event, ui) { $(this).parent().children().children('.ui-dialog-titlebar-close').hide();}
 	         
 	  });
 	
