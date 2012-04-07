@@ -12,6 +12,7 @@ class UniversalSearchController {
 	 * @return view showSearch
 	 */
 	def generateSearch(){
+		
 		def results = universalSearchService.generateSearchParameters(params)
 		def outputMap = [:]
 		results.strings.each{ type ->
@@ -28,6 +29,8 @@ class UniversalSearchController {
 
 		outputMap.put("strings", results.strings)
 		outputMap.put("string", results.string)
+		outputMap.put("dcName", results.dcName)
+		
 
 		render (view:"showSearch",model:[searchParams:outputMap])
 	}

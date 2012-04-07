@@ -28,7 +28,7 @@ class UniversalSearchService {
 			if(params.strings) stringsEnabled = true
 			if(params.dates)  datesEnabled = true
 			if(params.string) stringEnabled = true
-
+			resultMap.put("dcName",params.dcName)
 			if(stringsEnabled){
 				stringResults =  generateStringsMapOfDataAndDataType(domainClassName.clazz, params.strings,"strings")
 				resultMap.put("strings", stringResults)
@@ -81,14 +81,16 @@ class UniversalSearchService {
 	 * @return map of results [resultList:<queryResult>,resultListSize:<queryResultSize>
 	 * @throws Exception
 	 */
-	def generateResult(inputParams) throws Exception{
-		Class thisDomainClass = grailsApplication.domainClasses.find { it.clazz.simpleName == inputParams.controller }.clazz
+	def generateResult(inputParams) {
 		def returningResults = [:]
-		def results = queryBuilder(thisDomainClass,inputParams)
+		def results
+		Class thisDomainClass = grailsApplication.domainClasses.find { it.name == inputParams.dcName }.clazz
+		results = queryBuilder(thisDomainClass,inputParams)
 		log.info "results.size = "+results.size
 		returningResults.put("resultListSize", results.size)
 		if((inputParams.max)&& (results.size >= inputParams.max))returningResults.put("resultList", results[0..inputParams.max])
 		else returningResults.put("resultList", results)
+	    
 		return returningResults
 	}
 

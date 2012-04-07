@@ -1,5 +1,7 @@
 <g:each in="${searchParams}" status="i" var="paramsInstance">
-
+	<g:if test="${paramsInstance.key == 'dcName'}">
+	<g:hiddenField name="${paramsInstance.key}" value="${paramsInstance.value}" />
+	</g:if>
 	<g:if test="${paramsInstance.key == 'strings'}">
 		<g:each in="${paramsInstance.value}" status="j" var="stringsInstance">
 			<div
