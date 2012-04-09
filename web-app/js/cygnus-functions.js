@@ -56,8 +56,7 @@ $(document)
 
 					$("#spinner").dialog('close');
 
-					$(
-							' .nav ul li a, th a, td a, a.edit, a.create,a.list,a.delete,div.pagination *')
+					$(' .nav ul li a, th a, td a, a.edit, a.create,a.list,a.delete,div.pagination *')
 							.click(function() {
 								var objectUrl = $(this).attr('href');
 								openUrl(objectUrl);
