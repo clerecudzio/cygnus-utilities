@@ -40,11 +40,15 @@ function ajaxRequest(ajaxUrl, request, response) {
 }
 
 /**
- * Spinner modal box
+ * Various settings on document.ready
  */
 $(document)
 		.ready(
 				function() {
+				
+
+					
+					
 					// disable escape button
 					$(document).keydown(function(e) {
 						if (e.keyCode == 27) {
