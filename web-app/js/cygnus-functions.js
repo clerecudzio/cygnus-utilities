@@ -80,6 +80,10 @@ function handleError(XMLHttpRequest, textStatus, errorThrown) {
 	$("#ajaxError").prepend(XMLHttpRequest.responseText);
 	$('#ajaxRequestError .cygnusAjaxErrorRespondText').empty();
 	$('#ajaxRequestError .cygnusAjaxErrorRespondText').append("</br><h1>Ajax Response Text : "+textStatus+"</br> Ajax Error Thrown : "+errorThrown+"</h1>")
+	
+	//Force destroy spinner
+	$('#spinner').dialog('destroy');
+	
 	$('#ajaxRequestError').dialog('open');
 
 }

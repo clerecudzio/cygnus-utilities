@@ -6,12 +6,15 @@
 		<meta name="layout" content="cygnus-forms">
 		<g:set var="entityName" value="\${message(code: '${domainClass.propertyName}.label', default: '${className}')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
+		<parameter name="pageEName" value="${domainClass.propertyName}" />
 	</head>
 	<body>
 		<a href="#edit-${domainClass.propertyName}" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
+				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				
 			</ul>
 		</div>
 		<div id="edit-${domainClass.propertyName}" class="content scaffold-edit" role="main">
@@ -26,7 +29,7 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:formRemote update="pageContent" url="[controller:'${domainClass.propertyName}' action:'save']" method="post" <%= multiPart ? ' enctype="multipart/form-data"' : '' %>>
+			<g:formRemote name="cygnus${domainClass.propertyName}EditForm" update="pageContent" url="[controller:'${domainClass.propertyName}', action:'update']" method="post" <%= multiPart ? ' enctype="multipart/form-data"' : '' %>>
 				<g:hiddenField name="id" value="\${${propertyName}?.id}" />
 				<g:hiddenField name="version" value="\${${propertyName}?.version}" />
 				<fieldset class="form">
@@ -34,7 +37,7 @@
 				</fieldset>
 				<fieldset class="buttons">
 					<g:actionSubmit class="save" action="update" value="\${message(code: 'default.button.update.label', default: 'Update')}" />
-					<g:submitToRemote class="delete" action="delete" value="\${message(code: 'default.button.delete.label', default: 'Delete')}" formnovalidate=""  />
+					<g:submitToRemote update="pageContent" class="delete" action="delete" value="\${message(code: 'default.button.delete.label', default: 'Delete')}" formnovalidate=""  />
 				</fieldset>
 			</g:formRemote>
 		</div>
